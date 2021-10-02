@@ -1,0 +1,106 @@
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FormError } from '../components/form-error';
+import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
+import juberLogo from '../images/logo.png';
+import { Button } from '../components/button';
+import { Link } from 'react-router-dom';
+
+//loginMutation: Front를 위한 것, apollo validation, apollo가 변수를 확인한 다음 mutation을 생성한다.
+const LOGIN_MUTATION = gql`
+  mutation loginMutation($loginInput: LoginInput!) {
+    login(input: $loginInput) {
+      ok
+      token
+      error
+    }
+  }
+`;
+
+interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+export const Login = () => {
+  const {
+    register,
+    getValues,
+    formState: { errors },
+    handleSubmit,
+    formState,
+  } = useForm<ILoginForm>({
+    mode: 'onChange',
+  });
+  const onCompleted = (data: loginMutation) => {
+    const {
+      login: { error, ok, token },
+    } = data;
+    if (ok) {
+      console.log(token);
+    }
+  };
+  const [loginMutation, { data: loginMutationResult, loading }] = useMutation<loginMutation, loginMutationVariables>(
+    LOGIN_MUTATION,
+    {
+      onCompleted,
+    },
+  );
+  const onSubmit = () => {
+    if (!loading) {
+      const { email, password } = getValues();
+      loginMutation({
+        variables: {
+          loginInput: {
+            email,
+            password,
+          },
+        },
+      });
+    }
+  };
+  // items-center다음 child에는 w-full이 와야 왼쪽 정렬이 가능
+  return (
+    <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
+      <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
+        <img src={juberLogo} className="w-56 mb-10" />
+        <h4 className="w-full font-medium text-left text-3xl mb-5">Welcome back</h4>
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3 mt-5 w-full mb-5">
+          <input
+            {...register('email', {
+              required: 'Email is required',
+            })}
+            required
+            type="email"
+            placeholder="Email"
+            className="input"
+          />
+          {errors.email?.message && <FormError errorMessage={errors.email?.message} />}
+
+          <input
+            {...register('password', {
+              required: 'Password is required',
+              minLength: 3,
+            })}
+            required
+            type="password"
+            placeholder="Password"
+            className="input"
+          />
+          {errors.password?.message && <FormError errorMessage={errors.password?.message} />}
+          {errors.password?.type === 'minLength' && <FormError errorMessage="Password must be more than 3 chars." />}
+          <Button canClick={formState.isValid} loading={loading} actionText={'Log In'} />
+          {loginMutationResult?.login.error && <FormError errorMessage={loginMutationResult.login.error} />}
+        </form>
+        <div>
+          New to Juber?{" "} 
+          <Link to="/create-account" className="text-lime-600 hover:underline">
+            Create an Account
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
-    .btn {
-        @apply px-4 py-2 bg-blue-600 text-white rounded;
-    }
+  .input {
+    @apply border-gray-200 p-3 border-2 text-lg focus:outline-none focus:border-gray-500 transition-colors;
+  }
 }
