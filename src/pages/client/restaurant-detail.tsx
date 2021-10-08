@@ -39,10 +39,10 @@ export const RestaurantDetail = () => {
         <title>{data?.restaurant.restaurant?.name || ''} | Juber Eats</title>
       </Helmet>
       <div
-        className="bg-gray-400 py-32 lg:py-40 bg-cover bg-center"
+        className="bg-gray-400 py-32 lg:py-36 bg-cover bg-center"
         style={{ backgroundImage: `url(${data?.restaurant.restaurant?.coverImg})` }}
       >
-        <div className="w-7/12 lg:w-3/12 bg-white py-8 pl-10">
+        <div className="w-8/12 sm:w-7/12 md:w-6/12 lg:w-5/12 xl:w-4/12 bg-white py-8 pl-10">
           <h4 className="text-4xl mb-3">{data?.restaurant.restaurant?.name}</h4>
           <h5 className="text-sm font-light mb-2">{data?.restaurant.restaurant?.category?.name}</h5>
           <h6 className="text-sm font-light">{data?.restaurant.restaurant?.address}</h6>

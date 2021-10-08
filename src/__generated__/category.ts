@@ -31,6 +31,7 @@ export interface category_category_category {
   coverImg: string | null;
   slug: string;
   restaurantCount: number;
+  bgImg: string | null;
 }
 
 export interface category_category {
