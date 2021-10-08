@@ -13,8 +13,8 @@ import { LOCALSTORAGE_TOKEN } from '../constants';
 
 //loginMutation: Front를 위한 것, apollo validation, apollo가 변수를 확인한 다음 mutation을 생성한다.
 const LOGIN_MUTATION = gql`
-  mutation loginMutation($loginInput: LoginInput!) {
-    login(input: $loginInput) {
+  mutation loginMutation($input: LoginInput!) {
+    login(input: $input) {
       ok
       token
       error
@@ -58,7 +58,7 @@ export const Login = () => {
       const { email, password } = getValues();
       loginMutation({
         variables: {
-          loginInput: {
+          input: {
             email,
             password,
           },

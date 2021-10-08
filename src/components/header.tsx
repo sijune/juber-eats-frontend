@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
       <header className="py-4">
         <div className="w-full px-5 xl:px-0 max-w-screen-2xl mx-auto flex justify-between items-center">
           <Link to="/">
-          <img src={juberLogo} className="w-40" alt="Juber Eats" />
+          <img src={juberLogo} className="w-44" alt="Juber Eats" />
           </Link>
           <span>
             <Link to="/edit-profile">

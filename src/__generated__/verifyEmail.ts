@@ -20,5 +20,5 @@ export interface verifyEmail {
 }
 
 export interface verifyEmailVariables {
-  verifyEmailInput: VerifyEmailInput;
+  input: VerifyEmailInput;
 }

@@ -4,10 +4,11 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { verifyEmail, verifyEmailVariables } from '../../__generated__/verifyEmail';
 import { useMe } from '../../hooks/useMe';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const VERIFY_EMAIL_MUTATION = gql`
-  mutation verifyEmail($verifyEmailInput: VerifyEmailInput!) {
-    verifyEmail(input: $verifyEmailInput) {
+  mutation verifyEmail($input: VerifyEmailInput!) {
+    verifyEmail(input: $input) {
       ok
       error
     }
@@ -50,7 +51,7 @@ export const ConfirmEmail = () => {
     const [_, code] = window.location.href.split('code=');
     verifyEmail({
       variables: {
-        verifyEmailInput: {
+        input: {
           code,
         },
       },
@@ -59,6 +60,9 @@ export const ConfirmEmail = () => {
 
   return (
     <div className="mt-52 flex flex-col justify-center items-center ">
+      <Helmet>
+        <title>Confirm Email | Juber Eats</title>
+      </Helmet>
       <h2 className="font-medium text-lg mb-1 ">Confirming email...</h2>
       <h4 className="text-sm text-gray-700">Please wait, don't close this page...</h4>
     </div>

@@ -20,5 +20,5 @@ export interface createAccountMutation {
 }
 
 export interface createAccountMutationVariables {
-  createAccountInput: CreateAccountInput;
+  input: CreateAccountInput;
 }

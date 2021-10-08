@@ -12,8 +12,8 @@ import { createAccountMutation, createAccountMutationVariables } from '../__gene
 
 //loginMutation: Front를 위한 것, apollo validation, apollo가 변수를 확인한 다음 mutation을 생성한다.
 const CREATE_ACCOUNT_MUTATION = gql`
-  mutation createAccountMutation($createAccountInput: CreateAccountInput!) {
-    createAccount(input: $createAccountInput) {
+  mutation createAccountMutation($input: CreateAccountInput!) {
+    createAccount(input: $input) {
       ok
       error
     }
@@ -62,7 +62,7 @@ export const CreateAccount = () => {
       console.log(email, password, role);
       createAccountMutation({
         variables: {
-          createAccountInput: {
+          input: {
             email,
             password,
             role,
