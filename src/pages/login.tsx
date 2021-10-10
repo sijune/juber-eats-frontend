@@ -12,7 +12,7 @@ import { isLoggedInVar, authToken } from '../apollo';
 import { LOCALSTORAGE_TOKEN } from '../constants';
 
 //loginMutation: Front를 위한 것, apollo validation, apollo가 변수를 확인한 다음 mutation을 생성한다.
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation loginMutation($input: LoginInput!) {
     login(input: $input) {
       ok
@@ -93,7 +93,6 @@ export const Login = () => {
           <input
             {...register('password', {
               required: 'Password is required',
-              minLength: 3,
             })}
             required
             type="password"
@@ -101,7 +100,6 @@ export const Login = () => {
             className="input"
           />
           {errors.password?.message && <FormError errorMessage={errors.password?.message} />}
-          {errors.password?.type === 'minLength' && <FormError errorMessage="Password must be more than 3 chars." />}
           <Button canClick={formState.isValid} loading={loading} actionText={'Log In'} />
           {loginMutationResult?.login.error && <FormError errorMessage={loginMutationResult.login.error} />}
         </form>

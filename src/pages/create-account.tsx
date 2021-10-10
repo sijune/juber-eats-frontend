@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet-async';
 import { createAccountMutation, createAccountMutationVariables } from '../__generated__/createAccountMutation';
 
 //loginMutation: Front를 위한 것, apollo validation, apollo가 변수를 확인한 다음 mutation을 생성한다.
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccountMutation($input: CreateAccountInput!) {
     createAccount(input: $input) {
       ok
@@ -59,7 +59,6 @@ export const CreateAccount = () => {
   const onSubmit = () => {
     if (!loading) {
       const { email, password, role } = getValues();
-      console.log(email, password, role);
       createAccountMutation({
         variables: {
           input: {
@@ -71,7 +70,6 @@ export const CreateAccount = () => {
       });
     }
   };
-  console.log(watch());
   // items-center다음 child에는 w-full이 와야 왼쪽 정렬이 가능
   return (
     <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
