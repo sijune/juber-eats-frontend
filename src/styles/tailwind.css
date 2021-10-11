@@ -7,4 +7,10 @@
   .input {
     @apply border-gray-200 p-3 border-2 text-lg focus:outline-none focus:border-gray-500 transition-colors;
   }
+  .container {
+    @apply max-w-screen-2xl mx-auto;
+  }
+  .link {
+    @apply text-lime-600 hover:underline;
+  }
 }
