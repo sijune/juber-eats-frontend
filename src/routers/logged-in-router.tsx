@@ -10,6 +10,8 @@ import { Category } from '../pages/client/category';
 import { RestaurantDetail } from '../pages/client/restaurant-detail';
 import { MyRestaurants } from '../pages/owner/my-restaurants';
 import { AddRestaurant } from '../pages/owner/add-restaurant';
+import { MyRestaurant } from '../pages/owner/my-restaurant';
+import { AddDish } from '../pages/owner/add-dish';
 
 //[]을 사용하여 <></> 대신 여러태그들을 부여할 수 있다.
 const clientRoutes = [
@@ -26,7 +28,7 @@ const clientRoutes = [
     component: <Category />
   },
   {
-    path: "/restaurants/:id",
+    path: "/restaurant/:id",
     component: <RestaurantDetail />
   },
 ]
@@ -40,6 +42,14 @@ const ownerRoutes = [
     path: "/add-restaurant",
     component: <AddRestaurant />
   }, 
+  {
+    path: "/restaurant/:id",
+    component: <MyRestaurant />
+  },
+  {
+    path: "/restaurant/:id/add-dish",
+    component: <AddDish />
+  },
 ]
 
 const commonRoutes = [
