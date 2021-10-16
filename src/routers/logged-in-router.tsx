@@ -12,6 +12,7 @@ import { MyRestaurants } from '../pages/owner/my-restaurants';
 import { AddRestaurant } from '../pages/owner/add-restaurant';
 import { MyRestaurant } from '../pages/owner/my-restaurant';
 import { AddDish } from '../pages/owner/add-dish';
+import { Order } from '../pages/order';
 
 //[]을 사용하여 <></> 대신 여러태그들을 부여할 수 있다.
 const clientRoutes = [
@@ -60,6 +61,10 @@ const commonRoutes = [
   {
     path: "/edit-profile",
     component: <EditProfile />
+  },
+  {
+    path: "/order/:id",
+    component: <Order />
   },
 ]
 
