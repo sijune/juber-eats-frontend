@@ -108,6 +108,15 @@ export interface SearchRestaurantInput {
   query: string;
 }
 
+export interface TakeOrderInput {
+  id: number;
+}
+
+export interface UpdateOrderInput {
+  id: number;
+  status: OrderStatus;
+}
+
 export interface VerifyEmailInput {
   code: string;
 }

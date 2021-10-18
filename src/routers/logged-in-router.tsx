@@ -13,6 +13,8 @@ import { AddRestaurant } from '../pages/owner/add-restaurant';
 import { MyRestaurant } from '../pages/owner/my-restaurant';
 import { AddDish } from '../pages/owner/add-dish';
 import { Order } from '../pages/order';
+import { Dashboard } from '../pages/driver/dashboard';
+import { UserRole } from '../__generated__/globalTypes';
 
 //[]을 사용하여 <></> 대신 여러태그들을 부여할 수 있다.
 const clientRoutes = [
@@ -53,6 +55,13 @@ const ownerRoutes = [
   },
 ]
 
+const driverRoutes = [
+  {
+    path: "/",
+    component: <Dashboard />
+  }
+]
+
 const commonRoutes = [
   {
     path: "/confirm",
@@ -83,8 +92,9 @@ export const LoggedInRouter = () => {
     <Router>
       <Header />
       <Switch>
-        {data.me.role === 'Client' && clientRoutes.map(route => <Route exact key={route.path} path={route.path}>{route.component}</Route>)}
-        {data.me.role === 'Owner' && ownerRoutes.map(route => <Route exact key={route.path} path={route.path}>{route.component}</Route>)}
+        {data.me.role === UserRole.Client && clientRoutes.map(route => <Route exact key={route.path} path={route.path}>{route.component}</Route>)}
+        {data.me.role === UserRole.Owner && ownerRoutes.map(route => <Route exact key={route.path} path={route.path}>{route.component}</Route>)}
+        {data.me.role === UserRole.Delivery && driverRoutes.map(route => <Route exact key={route.path} path={route.path}>{route.component}</Route>)}
         {commonRoutes.map(route => <Route key={route.path} path={route.path}>{route.component}</Route>)}
         {/* 불일치하는경우 /로 리다이렉트 */}
         <Redirect to="/" />

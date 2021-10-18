@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import gql from 'graphql-tag';
-import { DISH_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from '../../fragments';
-import { useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { DISH_FRAGMENT, ORDER_ALL_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from '../../fragments';
+import { useQuery, useSubscription } from '@apollo/client';
+import { Link, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { myRestaurant, myRestaurantVariables } from '../../__generated__/myRestaurant';
 import { Dish } from '../../components/dish';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryVoronoiContainer, VictoryLabel } from 'victory';
+import { pendingOrders } from '../../__generated__/pendingOrders';
 
 export const MY_RESTAURANT_QUERY = gql`
   query myRestaurant($input: MyRestaurantInput!) {
@@ -30,6 +31,15 @@ export const MY_RESTAURANT_QUERY = gql`
   ${ORDER_FRAGMENT}
 `;
 
+const PENDING_ORDERS_SUBSCRIPTION = gql`
+  subscription pendingOrders {
+    pendingOrders {
+      ...OrderAllParts
+    }
+  }
+  ${ORDER_ALL_FRAGMENT}
+`;
+
 interface IParams {
   id: string;
 }
@@ -44,6 +54,14 @@ export const MyRestaurant = () => {
     },
   });
   console.log(data);
+  //Listening 시작
+  const { data: subscriptionData } = useSubscription<pendingOrders>(PENDING_ORDERS_SUBSCRIPTION);
+  const history = useHistory();
+  useEffect(() => {
+    if (subscriptionData?.pendingOrders.id) {
+      history.push(`/order/${subscriptionData?.pendingOrders.id}`);
+    }
+  }, [subscriptionData]);
   return (
     <div>
       <Helmet>
