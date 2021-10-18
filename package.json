@@ -46,6 +46,7 @@
         "tailwind:build": "tailwind build -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
         "start": "npm run apollo:codegen & npm run tailwind:build & react-scripts start",
         "build": "react-scripts build",
+        "prebuild": "npm run tailwind:build",
         "test": "react-scripts test",
         "test:coverage": "npm test -- --coverage --watchAll=false",
         "eject": "react-scripts eject",
