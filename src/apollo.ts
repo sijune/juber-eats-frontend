@@ -13,12 +13,18 @@ export const authToken = makeVar(token);
 
 //http
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri:
+    process.env.NODE_ENV === 'production'
+      ? 'https://juber-eats-back.herokuapp.com/graphql'
+      : 'http://localhost:4000/graphql',
 });
 
 //ws
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri:
+    process.env.NODE_ENV === 'production'
+      ? 'ws://juber-eats-back.herokuapp.com/graphql'
+      : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
     connectionParams: {
