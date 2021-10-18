@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link, useHistory } from 'react-router-dom';
@@ -142,7 +144,7 @@ export const Dashboard = () => {
     <div>
       <div className="overflow-hidden" style={{ height: '50vh', width: window.innerWidth }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBl5IrD58_owNbJBqMsplIrb-wTZioAiDI' }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP || '' }}
           defaultCenter={{ lat: 35.95, lng: 125.33 }}
           draggable={true}
           defaultZoom={16}
