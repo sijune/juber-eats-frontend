@@ -23,7 +23,7 @@ const httpLink = createHttpLink({
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'ws://juber-eats-back.herokuapp.com/graphql'
+      ? 'wss://juber-eats-back.herokuapp.com/graphql'
       : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
